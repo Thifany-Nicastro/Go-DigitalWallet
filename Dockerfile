@@ -2,9 +2,11 @@ FROM golang:1.21.5
 
 WORKDIR /app
 
-COPY ./ /app
+COPY . .
 
 RUN go mod download
+
+RUN go install github.com/cosmtrek/air@latest
 
 # ENTRYPOINT go run main.go
 

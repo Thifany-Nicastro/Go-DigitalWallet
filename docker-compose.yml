@@ -8,27 +8,32 @@ services:
       - 3000:3000 #host_port:container_port
     volumes:
       - .:/app
-    command: go run main.go
-    # depends_on:
-    #   - postgresdb
+    command: air
+    env_file:
+      - .env
+    depends_on:
+      - postgresdb
     networks:
       - digitalwallet
 
-  # postgresdb:
-  #   image: postgres:latest
-  #   container_name: postgres_container
-  #   environment:
-  #     - POSTGRES_USER=${DB_USER}
-  #     - POSTGRES_PASSWORD=${DB_PASSWORD}
-  #     - POSTGRES_DB=${DB_NAME}
-  #     - DATABASE_HOST=${DB_HOST}
-  #   ports:
-  #     - '5432:5432'
-  #   volumes:
-  #     - postgres-db:/var/lib/postgresql/data
-  #   networks:
-  #     - digitalwallet
+  postgresdb:
+    image: postgres:latest
+    container_name: postgres_container
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+      # - DATABASE_HOST=${DB_HOST}
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres-db:/var/lib/postgresql/data
+    networks:
+      - digitalwallet
 
+volumes:
+  postgres-db:
+  
 networks:
   digitalwallet:
     driver: bridge
