@@ -14,7 +14,7 @@ import (
 )
 
 type Dbinstance struct {
-	Db *gorm.DB
+	Conn *gorm.DB
 }
 
 var DB Dbinstance
@@ -36,10 +36,10 @@ func ConnectDb() {
 	db.Logger = logger.Default.LogMode(logger.Info)
 
 	log.Println("running migrations")
-	db.AutoMigrate(&models.User{})
+	db.AutoMigrate(&models.UserModel{})
 
 	DB = Dbinstance{
-		Db: db,
+		Conn: db,
 	}
 }
 
