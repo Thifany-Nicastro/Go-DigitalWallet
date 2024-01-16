@@ -9,15 +9,15 @@ import (
 )
 
 func InitRouter() *chi.Mux {
-	r := chi.NewRouter()
+	router := chi.NewRouter()
 
-	r.Use(middleware.Logger)
+	router.Use(middleware.Logger)
 
-	routes.SetupUserRoutes(r)
+	routes.SetupUserRoutes(router, InjectUserController())
 
-	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
+	router.Get("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("welcome"))
 	})
 
-	return r
+	return router
 }
