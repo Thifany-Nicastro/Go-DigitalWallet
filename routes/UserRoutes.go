@@ -7,5 +7,5 @@ import (
 )
 
 func SetupUserRoutes(router *chi.Mux, userController controllers.UserController) {
-	router.HandleFunc("/users", userController.FindUser)
+	router.HandleFunc("/users/{id}", userController.FindUser)
 }

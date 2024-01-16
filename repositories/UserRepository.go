@@ -9,10 +9,10 @@ type UserRepository struct {
 	infrastructure.Dbinstance
 }
 
-func (repository *UserRepository) GetUserById(id string) (models.UserModel, error) {
+func (repository *UserRepository) GetUserById(id int) models.UserModel {
 	var user models.UserModel
 
-	repository.Conn.First(&user, 1)
+	repository.Conn.First(&user, id)
 
-	return user, nil
+	return user
 }
